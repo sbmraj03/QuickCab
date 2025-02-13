@@ -10,8 +10,8 @@ const CaptainSignup = () => {
 
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
-  const [ firstName, setFirstName ] = useState('')
-  const [ lastName, setLastName ] = useState('')
+  const [ firstName, setfirstName ] = useState('')
+  const [ lastName, setlastName ] = useState('')
 
   const [ vehicleColor, setVehicleColor ] = useState('')
   const [ vehiclePlate, setVehiclePlate ] = useState('')
@@ -25,9 +25,9 @@ const CaptainSignup = () => {
   const submitHandler = async (e) => {
     e.preventDefault()
     const captainData = {
-      fullname: {
-        firstname: firstName,
-        lastname: lastName
+      fullName: {
+        firstName: firstName,
+        lastName: lastName
       },
       email: email,
       password: password,
@@ -41,7 +41,8 @@ const CaptainSignup = () => {
 
     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, captainData)
 
-    if (response.status === 201) {
+    if (response.status === 200) {
+      console.log("I am reachable");
       const data = response.data
       setCaptain(data.captain)
       localStorage.setItem('token', data.token)
@@ -49,8 +50,8 @@ const CaptainSignup = () => {
     }
 
     setEmail('')
-    setFirstName('')
-    setLastName('')
+    setfirstName('')
+    setlastName('')
     setPassword('')
     setVehicleColor('')
     setVehiclePlate('')
@@ -76,7 +77,7 @@ const CaptainSignup = () => {
               placeholder='First name'
               value={firstName}
               onChange={(e) => {
-                setFirstName(e.target.value)
+                setfirstName(e.target.value)
               }}
             />
             <input
@@ -86,7 +87,7 @@ const CaptainSignup = () => {
               placeholder='Last name'
               value={lastName}
               onChange={(e) => {
-                setLastName(e.target.value)
+                setlastName(e.target.value)
               }}
             />
           </div>

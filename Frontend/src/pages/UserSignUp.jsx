@@ -8,8 +8,8 @@ import { UserDataContext } from '../context/UserContext'
 const UserSignup = () => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
-  const [ firstName, setFirstName ] = useState('')
-  const [ lastName, setLastName ] = useState('')
+  const [ firstName, setfirstName ] = useState('')
+  const [ lastName, setlastName ] = useState('')
   const [ userData, setUserData ] = useState({})
 
   const navigate = useNavigate()
@@ -24,17 +24,19 @@ const UserSignup = () => {
   const submitHandler = async (e) => {
     e.preventDefault()
     const newUser = {
-      fullname: {
-        firstname: firstName,
-        lastname: lastName
+      fullName: {
+        firstName: firstName,
+        lastName: lastName
       },
       email: email,
       password: password
     }
 
     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser)
+    console.log("HI I am reachable here")
+    console.log(response.status)
 
-    if (response.status === 201) {
+    if (response.status === 200) {
       const data = response.data
       setUser(data.user)
       localStorage.setItem('token', data.token)
@@ -43,8 +45,8 @@ const UserSignup = () => {
 
 
     setEmail('')
-    setFirstName('')
-    setLastName('')
+    setfirstName('')
+    setlastName('')
     setPassword('')
 
   }
@@ -67,7 +69,7 @@ const UserSignup = () => {
                 placeholder='First name'
                 value={firstName}
                 onChange={(e) => {
-                  setFirstName(e.target.value)
+                  setfirstName(e.target.value)
                 }}
               />
               <input
@@ -77,7 +79,7 @@ const UserSignup = () => {
                 placeholder='Last name'
                 value={lastName}
                 onChange={(e) => {
-                  setLastName(e.target.value)
+                  setlastName(e.target.value)
                 }}
               />
             </div>
